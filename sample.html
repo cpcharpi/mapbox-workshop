@@ -56,15 +56,33 @@
           mapboxgl.accessToken = 'pk.eyJ1IjoiY3BjaGFycGkiLCJhIjoiY2p5YWl4cHJjMDI4dDNjbzU1cGoycXdnciJ9.CqrxMcqVkNrrpk9badJTpQ';
           var map = new mapboxgl.Map({
           container: 'map',
-          style: 'mapbox://styles/mapbox/satellite-v9',
+          style: 'mapbox://styles/mapbox/streets-v11',
           zoom: 15,
-          center: [6.5392, 46.6547]
+          center: [-71.97722138410576, -13.517379300798098]
           });
 
           map.on('load', function () {
+          map.addSource('museums', {
+            type: 'vector',
+            url: 'mapbox://mapbox.2opop9hr'
+          });
+          map.addLayer({
+            'id': 'museums',
+            'type': 'circle',
+            'source': 'museums',
+            'layout': {
+            'visibility': 'visible'
+          },
+            'paint': {
+              'circle-radius': 8,
+              'circle-color': 'rgba(55,148,179,1)'
+          },
+          'source-layer': 'museum-cusco'
+          });
+
           map.addSource('contours', {
-            type: 'geojson',
-            url: 'https://github.com/cpcharpi/mapbox-workshop/raw/master/Contours.geojson'
+            type: 'vector',
+            url: 'mapbox://mapbox.mapbox-terrain-v2'
           });
           map.addLayer({
             'id': 'contours',
@@ -83,7 +101,7 @@
           });
           });
 
-          var toggleableLayerIds = [ 'contours'];
+          var toggleableLayerIds = [ 'contours', 'museums' ];
 
           for (var i = 0; i < toggleableLayerIds.length; i++) {
           var id = toggleableLayerIds[i];
