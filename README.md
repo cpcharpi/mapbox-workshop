@@ -6,4 +6,4 @@ Create your own simple, but interactive web map showing a raster and vector and 
 
 ### index.html ###
 
-Contains a mapbox GL JS sample with geojson topo contours and an ortho image foe Swiss Quarry.
+Contains a mapbox GL JS sample with geojson topo contours and an ortho image for Swiss Quarry.
