@@ -23,12 +23,30 @@
             //  'mapbox://styles/mapbox/streets-v10'
             //  'mapbox://styles/mapbox/dark-v10'
             //  'mapbox://styles/mapbox/outdoors-v10'
-            //  'mapbox://styles/mapbox/satellite-v10'
+            //  'mapbox://styles/mapbox/satellite-v9'
             //  'mapbox://styles/mapbox/traffic-night-v2'
             center: [6.5392, 46.6547], // change starting position to coordinates associated w/ your data.
             zoom: 16 // starting zoom
             });
             map.on('load', function () {
+            map.addSource('aerial', {
+                      "type": 'image',
+                      "url": 'https://raw.githubusercontent.com/cpcharpi/mapbox-workshop/master/Holcim_Swiss_Quarry_5_30_2012_Ortho.jpg',
+                      "coordinates": [
+                       [6.532194, 46.658972],
+                       [6.546864, 46.658972],
+                       [6.546864, 46.652703],
+                       [6.532194, 46.652703]
+                       ]
+                  });
+                  map.addLayer({
+                 "id": 'aerial',
+                 "source": "aerial",
+                 "type": "raster",
+                 "paint": {
+                 "raster-opacity": 0.9
+                 }
+              });
             map.addSource('topo', {
                     type: 'geojson',
                     data: 'https://raw.githubusercontent.com/cpcharpi/mapbox-workshop/master/contours_sel.geojson'
@@ -43,16 +61,6 @@
                  'line-width': 1
                }
            });
-           map.addSource('aerial', {
-                   type: 'geojson',
-                   data: 'https://raw.githubusercontent.com/cpcharpi/mapbox-workshop/master/aerial.geojson'
-               });
-               map.addLayer({
-              'id': 'aerial',
-              "type": "image",
-              "source": "aerial",
-              'layout': {},
-          });
           });
           </script>
       </body>
