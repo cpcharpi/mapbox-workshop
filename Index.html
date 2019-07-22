@@ -18,7 +18,7 @@
 
             var map = new mapboxgl.Map({
             container: 'map', // container id
-            style: 'mapbox://styles/mapbox/streets-v10', //hosted style id;
+            style: 'mapbox://styles/mapbox/satellite-v9', //hosted style id;
             //others:
             //  'mapbox://styles/mapbox/light-v10'
             //  'mapbox://styles/mapbox/streets-v10'
@@ -26,34 +26,31 @@
             //  'mapbox://styles/mapbox/outdoors-v10'
             //  'mapbox://styles/mapbox/satellite-v10'
             //  'mapbox://styles/mapbox/traffic-night-v2'
-            center: [-81.2023, 28.7302], // change starting position to coordinates associated w/ your data.
-            zoom: 11 // starting zoom
+            center: [6.5392, 46.6547], // change starting position to coordinates associated w/ your data.
+            zoom: 16 // starting zoom
             });
-            map.addSource('do_rast1', {
-                  type: 'geojson',
-                  data: 'https://raw.githubusercontent.com/mmamanat/gis714/master/rasters/do_rast1'
-              });
-              map.addLayer({
-               'id': 'do_rast1',
-               "type": "fill",
-               "source": "do_rast1",
-               'layout': {},
-               'paint': {
-                   'fill-color': {
-                     property: 'do_rast1',
-                     type: 'exponential',
-                     stops: [
-                     [8.312620, '#edf8fb'],
-                     [8.656304, '#b2e2e2'],
-                     [8.7, '#66c2a4'],
-                     [8.9, '#2ca25f'],
-                     [9.119719, '#006d2c']
-                     ],
-                   },
-                   'fill-opacity': 0.2
-               }
-           });
+            map.on('load', function () {
 
+            map.addSource('contours', {
+              type: 'vector',
+              url: 'mapbox://mapbox.mapbox-terrain-v2'
+            });
+            map.addLayer({
+              'id': 'contours',
+              'type': 'line',
+              'source': 'contours',
+              'source-layer': 'contour',
+              'layout': {
+                'visibility': 'visible',
+                'line-join': 'round',
+                'line-cap': 'round'
+              },
+              'paint': {
+                'line-color': '#ff0000',
+                'line-width': 0.5
+            },
+            });
+            });
           </script>
       </body>
     </html>
